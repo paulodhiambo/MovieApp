@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Movie</string>
+    <string name="movie_item">movie item</string>
+    <string name="retry">Retry</string>
+    <string name="movie_error">An error occurred while loading the movies</string>
+    <string name="about">About</string>
+    <string name="similar_movies">Similar Movies</string>
+</resources>
