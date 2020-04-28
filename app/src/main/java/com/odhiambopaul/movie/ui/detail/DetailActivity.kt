@@ -28,7 +28,7 @@ class DetailActivity : AppCompatActivity() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var binding: ActivityDetailBinding
 
-    @SuppressLint("CheckResult")
+    @SuppressLint("CheckResult", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         DaggerApplicationComponent.factory().create(this.application as App).inject(this)
@@ -43,10 +43,8 @@ class DetailActivity : AppCompatActivity() {
         Glide.with(this@DetailActivity)
             .load("$image_path${poster}")
             .into(poster_image)
-        text_title.text = title
-        text_language.text = language
-        text_release_date.text = release_date
-        text_overview.text = overview
+        text_release_date.text = "Release Date: $release_date"
+        text_overview.text = "Overview\n $overview"
         viewModel.getSimilarMovies(movieId, key = api_key)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

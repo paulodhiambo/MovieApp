@@ -130,7 +130,7 @@ class HomeActivity : AppCompatActivity() {
                 true
             }
             R.id.about_menu->{
-                Toast.makeText(this, "Will be implemented soon",Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "About",Toast.LENGTH_LONG).show()
                 return true
             }
             else->super.onOptionsItemSelected(item)
