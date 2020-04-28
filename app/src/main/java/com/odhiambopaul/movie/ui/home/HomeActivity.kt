@@ -69,7 +69,10 @@ class HomeActivity : AppCompatActivity() {
                                     setHasFixedSize(true)
                                     layoutManager = GridLayoutManager(this@HomeActivity, columns)
                                     adapter =
-                                        HomeAdapter(result.results + data.results + response.results, context)
+                                        HomeAdapter(
+                                            result.results + data.results + response.results,
+                                            context
+                                        )
                                 }
                             }, { t ->
                                 kotlin.run {
@@ -123,17 +126,21 @@ class HomeActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId)
-        {
-            R.id.search_menu->{
-                startActivity(Intent(this,SearchActivity::class.java))
+        //TODO: dark theme implementation
+        return when (item.itemId) {
+            R.id.search_menu -> {
+                startActivity(Intent(this, SearchActivity::class.java))
                 true
             }
-            R.id.about_menu->{
-                Toast.makeText(this, "About",Toast.LENGTH_LONG).show()
-                return true
+            R.id.dark_menu -> {
+                setTheme(R.style.DarkTheme)
+                true
             }
-            else->super.onOptionsItemSelected(item)
+            R.id.light_menu -> {
+                setTheme(R.style.AppTheme)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 }
