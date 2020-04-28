@@ -7,6 +7,10 @@
         android:icon="@drawable/ic_search_black_24dp"
         app:showAsAction="always"/>
     <item
-        android:title="@string/about"
-        android:id="@+id/about_menu"/>
+        android:title="@string/Dark"
+        android:id="@+id/dark_menu"/>
+    <item
+        android:title="@string/light"
+        android:id="@+id/light_menu"/>
+
 </menu>
