@@ -43,7 +43,7 @@ This project takes advantage of many popular libraries and tools of the Android 
  ### Android Studio
  
  1. Android Studio -> File -> New -> From Version control -> Git
- 2. Enter `https://github.com/jumaallan/nala-money.git` into URL field
+ 2. Enter `https://github.com/paulodhiambo/MovieApp.git` into URL field
  
  ### Command line + Android Studio
  
