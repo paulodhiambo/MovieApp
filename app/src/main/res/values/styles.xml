@@ -8,13 +8,4 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <!-- Dark application theme. -->
-    <style name="DarkTheme" parent="Theme.AppCompat.DayNight">
-        <item name="colorPrimary">@color/primary</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="colorPrimaryDark">@color/primary</item>
-        <item name="colorAccent">@color/accent</item>
-        <item name="background">@color/dark</item>
-    </style>
-
 </resources>
