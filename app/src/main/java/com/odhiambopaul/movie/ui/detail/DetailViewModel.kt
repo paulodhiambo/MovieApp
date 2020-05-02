@@ -20,4 +20,6 @@ class DetailViewModel @Inject constructor(private val detailRepository: DetailRe
     {
         return detailRepository.getSimilarMovies(id,key)
     }
+
+
 }
