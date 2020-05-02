@@ -1,4 +1,4 @@
-## \[ 🚧 Work in progress 👷‍♀️⛏👷🔧️🚧 \] Movie App
+## \[ 🚧 Work in progress 👷‍♀️⛏👷🔧️🚧 \] Movie App [![CircleCI](https://circleci.com/gh/paulodhiambo/MovieApp.svg?style=shield&circle-token=f5a71b5b89e284cde350f25ccc86d33bb370bd50)](https://circleci.com/gh/paulodhiambo/MovieApp)
 
 A simple android app that shows your favorite movies. In this solution, the following needs to be demonstrated 
 
