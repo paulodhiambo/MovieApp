@@ -7,6 +7,9 @@ import com.odhiambopaul.movie.di.component.DaggerApplicationComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import org.jetbrains.annotations.NotNull
+import org.jetbrains.annotations.Nullable
+import timber.log.Timber
 import javax.inject.Inject
 
 class App : Application() {
@@ -25,6 +28,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         configureDagger()
+        initTimber()
         instance = this
     }
 
@@ -34,6 +38,17 @@ class App : Application() {
 
     private fun getAppComponent(): ApplicationComponent {
         return applicationComponent
+    }
+
+    private fun initTimber() {
+        if (BuildConfig.DEBUG) {
+            Timber.plant(object : Timber.DebugTree() {
+                @Nullable
+                override fun createStackElementTag(@NotNull element: StackTraceElement): String? {
+                    return super.createStackElementTag(element) + ":" + element.lineNumber
+                }
+            })
+        }
     }
 
 

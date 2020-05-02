@@ -17,6 +17,7 @@ import com.odhiambopaul.movie.ui.home.HomeActivity
 import com.odhiambopaul.movie.util.api_key
 import com.odhiambopaul.movie.util.image_path
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_detail.*
 import javax.inject.Inject
@@ -27,6 +28,7 @@ class DetailActivity : AppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var binding: ActivityDetailBinding
+    private val compositeDisposable by lazy { CompositeDisposable() }
 
     @SuppressLint("CheckResult", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,5 +68,11 @@ class DetailActivity : AppCompatActivity() {
         val intent = Intent(this, HomeActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        compositeDisposable.clear()
+        compositeDisposable.dispose()
     }
 }

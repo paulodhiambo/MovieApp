@@ -5,12 +5,15 @@
       <w>bindable</w>
       <w>bwqwx</w>
       <w>cfacbd</w>
+      <w>coroutines</w>
       <w>coverter</w>
       <w>dpwidth</w>
+      <w>flowable</w>
       <w>ftdkn</w>
       <w>gson</w>
       <w>jxlo</w>
       <w>lateinit</w>
+      <w>movi</w>
       <w>multibinding</w>
       <w>multidex</w>
       <w>odhiambopaul</w>
@@ -19,6 +22,7 @@
       <w>omdbapi</w>
       <w>outmetrics</w>
       <w>snackbar</w>
+      <w>stetho</w>
       <w>subcomponent</w>
       <w>tmdb</w>
     </words>
