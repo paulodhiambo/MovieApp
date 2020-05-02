@@ -133,7 +133,6 @@ class HomeActivity : AppCompatActivity() {
                 true
             }
             R.id.dark_menu -> {
-                setTheme(R.style.DarkTheme)
                 true
             }
             R.id.light_menu -> {
