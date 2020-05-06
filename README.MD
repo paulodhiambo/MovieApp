@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2baae276a8e24d938edb9ea8f1df0960)](https://app.codacy.com/manual/paulodhiambo/MovieApp?utm_source=github.com&utm_medium=referral&utm_content=paulodhiambo/MovieApp&utm_campaign=Badge_Grade_Dashboard)
 ## \[ 🚧 Work in progress 👷‍♀️⛏👷🔧️🚧 \] Movie App [![CircleCI](https://circleci.com/gh/paulodhiambo/MovieApp.svg?style=shield&circle-token=f5a71b5b89e284cde350f25ccc86d33bb370bd50)](https://circleci.com/gh/paulodhiambo/MovieApp)
 
 A simple android app that shows your favorite movies. In this solution, the following needs to be demonstrated 
