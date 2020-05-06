@@ -28,7 +28,7 @@ public class MovieAppUiTest {
      we delay the test for 3 seconds so that the data is fully loaded
     * */
     @Test
-    public void HomeTest() throws InterruptedException {
+    public void homeTest() throws InterruptedException {
         Thread.sleep(3000);
         onView(withId(R.id.movieRecyclerView))
                 .perform(
