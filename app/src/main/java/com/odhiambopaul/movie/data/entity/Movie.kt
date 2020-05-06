@@ -1,8 +1,13 @@
 package com.odhiambopaul.movie.data.entity
 
+import android.view.View
+import android.widget.ImageView
+import androidx.databinding.BindingAdapter
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import com.bumptech.glide.Glide
+import com.odhiambopaul.movie.R
+
 
 @Entity(tableName = "Movie")
 data class Movie(
@@ -20,4 +25,15 @@ data class Movie(
     val video: Boolean, // false
     val vote_average: Double, // 6
     val vote_count: Int // 3037
-)
+) {
+    companion object {
+        @JvmStatic
+        @BindingAdapter("android:imageUri")
+        fun bindImage(view: View, poster_path: String) {
+            val image = view.findViewById<ImageView>(R.id.imageView)
+            Glide.with(view)
+                .load("https://image.tmdb.org/t/p/w500/${poster_path}")
+                .into(image)
+        }
+    }
+}

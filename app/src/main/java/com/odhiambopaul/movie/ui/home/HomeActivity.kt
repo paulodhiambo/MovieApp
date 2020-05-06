@@ -20,8 +20,11 @@ import com.odhiambopaul.movie.App
 import com.odhiambopaul.movie.R
 import com.odhiambopaul.movie.databinding.ActivityHomeBinding
 import com.odhiambopaul.movie.di.component.DaggerApplicationComponent
+import com.odhiambopaul.movie.ui.adapter.HomeRecylerAdapter
+import com.odhiambopaul.movie.ui.detail.DetailActivity
 import com.odhiambopaul.movie.ui.search.SearchActivity
 import com.odhiambopaul.movie.util.apiKey
+import com.odhiambopaul.movie.util.image_path
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -36,6 +39,9 @@ class HomeActivity : AppCompatActivity() {
     private var errorSnackbar: Snackbar? = null
     private lateinit var subscription: Disposable
     private val errorMessage: MutableLiveData<Int> = MutableLiveData()
+    private val radapter by lazy {
+        HomeRecylerAdapter()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,11 +74,25 @@ class HomeActivity : AppCompatActivity() {
                                 binding.movieRecyclerView.apply {
                                     setHasFixedSize(true)
                                     layoutManager = GridLayoutManager(this@HomeActivity, columns)
-                                    adapter =
-                                        HomeAdapter(
-                                            result.results + data.results + response.results,
-                                            context
-                                        )
+                                    adapter = radapter
+                                    val result = result.results + data.results + response.results
+                                    radapter.addItems(result)
+                                    radapter.listener = { view, item, position ->
+
+                                        val id = item.id.toString()
+                                        val intent = Intent(context, DetailActivity::class.java)
+                                        intent.putExtra("id", id)
+                                        intent.putExtra("poster", item.poster_path)
+                                        intent.putExtra("release_date", item.release_date)
+                                        intent.putExtra("language", item.original_language)
+                                        intent.putExtra("overview", item.overview)
+                                        intent.putExtra("title", item.title)
+                                        context.startActivity(intent)
+                                    }
+//                                        HomeAdapter(
+//                                            result.results + data.results + response.results,
+//                                            context
+//                                        )
                                 }
                             }, { t ->
                                 kotlin.run {
