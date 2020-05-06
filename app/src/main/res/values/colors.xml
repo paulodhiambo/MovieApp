@@ -3,5 +3,5 @@
     <!--    used with the base theme-->
     <color name="colorPrimary">#424242</color>
     <color name="colorPrimaryDark">#212121</color>
-    <color name="colorAccent">#FFFFFF</color>
+    <color name="colorAccent">#BB99EE</color>
 </resources>

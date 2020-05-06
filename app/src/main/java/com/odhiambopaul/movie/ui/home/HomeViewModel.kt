@@ -1,6 +1,9 @@
 package com.odhiambopaul.movie.ui.home
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.odhiambopaul.movie.data.entity.Movie
 import com.odhiambopaul.movie.data.response.MovieResponse
 import com.odhiambopaul.movie.data.response.NowPlayingResponse
 import com.odhiambopaul.movie.data.response.TopRatedResponse
@@ -15,30 +18,32 @@ import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(private val homeRepository: HomeRepository) :
     BaseViewModel() {
-    fun getMovies(): Observable<MovieResponse> {
-        return homeRepository.getPopularMovies(api_key)
-    }
+    private val _movies = MutableLiveData<List<Movie>>()
+    val movies: LiveData<List<Movie>>
+        get() = _movies
+    private var homeListener: MovieListener? = null
 
-    fun getNowPlaying():Observable<NowPlayingResponse>
-    {
-        return homeRepository.getNowPlaying(api_key)
-    }
-    fun getTopRated():Observable<TopRatedResponse>
-    {
-        return homeRepository.getTopRated(api_key)
-    }
-    fun getUpComing():Observable<UpcomingResponse>
-    {
-        return homeRepository.getUpComing(api_key)
-    }
-
-    fun searchMovie(key: String, name: String) {
+    fun getMovie() {
         compositeDisposable.add(
-            homeRepository.searchMovie(key, name)
+            homeRepository.getPopularMovies(api_key)
                 .subscribeOn(Schedulers.io())
+                .doOnSubscribe { homeListener?.onFetchStarted() }
+                .doOnTerminate { homeListener?.onFetchFinished() }
+                .doOnComplete { homeListener?.onFetchFinished() }
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ data -> Log.d("Success:::::", data.Poster) },
-                    { t -> Log.e("Error::::", t.localizedMessage!!) })
+                .subscribe({ movie ->
+                    homeRepository.getNowPlaying(api_key)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({
+                            val movieResponse = movie.results + it.results
+                            _movies.value = movieResponse
+                        }, {
+                            homeListener?.onFailure(it.localizedMessage!!)
+                        })
+                }, {
+                    homeListener?.onFailure(it.localizedMessage!!)
+                })
         )
     }
 }

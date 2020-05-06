@@ -33,6 +33,7 @@ data class Movie(
             val image = view.findViewById<ImageView>(R.id.imageView)
             Glide.with(view)
                 .load("https://image.tmdb.org/t/p/w500/${poster_path}")
+                .thumbnail(Glide.with(view).load(R.drawable.tenor))
                 .into(image)
         }
     }
