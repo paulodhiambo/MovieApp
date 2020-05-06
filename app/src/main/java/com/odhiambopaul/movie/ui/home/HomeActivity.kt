@@ -7,6 +7,7 @@ import android.view.Display
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -78,17 +79,13 @@ class HomeActivity : AppCompatActivity(), MovieListener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        //TODO: dark theme implementation
         return when (item.itemId) {
             R.id.search_menu -> {
                 startActivity(Intent(this, SearchActivity::class.java))
                 true
             }
-            R.id.dark_menu -> {
-                true
-            }
-            R.id.light_menu -> {
-                setTheme(R.style.AppTheme)
+            R.id.sort -> {
+                Toast.makeText(this, "Sort", Toast.LENGTH_LONG).show()
                 true
             }
             else -> super.onOptionsItemSelected(item)

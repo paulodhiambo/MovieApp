@@ -2,15 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:title=""
         android:id="@+id/search_menu"
         android:icon="@drawable/ic_search_black_24dp"
-        app:showAsAction="always"/>
+        android:title=""
+        app:showAsAction="always" />
     <item
-        android:title="@string/Dark"
-        android:id="@+id/dark_menu"/>
-    <item
-        android:title="@string/light"
-        android:id="@+id/light_menu"/>
-
+        android:id="@+id/sort"
+        android:icon="@drawable/ic_sort_black_24dp"
+        android:title=""
+        app:showAsAction="ifRoom" />
 </menu>
