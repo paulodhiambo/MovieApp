@@ -17,7 +17,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 @RunWith(AndroidJUnit4.class)
 public class MovieAppUiTest {
     @Rule
-    public ActivityTestRule homeActivityActivityTestRule = new ActivityTestRule(HomeActivity.class);
+    public ActivityTestRule<HomeActivity> homeActivityActivityTestRule = new ActivityTestRule<>(HomeActivity.class);
 
     /*
     app is loading data asynchronously on different thread, then updates RecyclerView

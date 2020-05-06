@@ -13,6 +13,7 @@ import com.odhiambopaul.movie.App
 import com.odhiambopaul.movie.R
 import com.odhiambopaul.movie.databinding.ActivityDetailBinding
 import com.odhiambopaul.movie.di.component.DaggerApplicationComponent
+import com.odhiambopaul.movie.ui.adapter.SimilarMoviesAdapter
 import com.odhiambopaul.movie.ui.home.HomeActivity
 import com.odhiambopaul.movie.util.api_key
 import com.odhiambopaul.movie.util.image_path
@@ -29,6 +30,7 @@ class DetailActivity : AppCompatActivity() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var binding: ActivityDetailBinding
     private val compositeDisposable by lazy { CompositeDisposable() }
+    private val similarAdapter by lazy { SimilarMoviesAdapter() }
 
     @SuppressLint("CheckResult", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,9 +41,9 @@ class DetailActivity : AppCompatActivity() {
         val movieId = intent.getStringExtra("id")
         val poster = intent.getStringExtra("poster")
         val release_date = intent.getStringExtra("release_date")
-        val language = intent.getStringExtra("original_language")
+        //val language = intent.getStringExtra("original_language")
         val overview = intent.getStringExtra("overview")
-        val title = intent.getStringExtra("title")
+        //val title = intent.getStringExtra("title")
         Glide.with(this@DetailActivity)
             .load("$image_path${poster}")
             .into(poster_image)
@@ -58,7 +60,12 @@ class DetailActivity : AppCompatActivity() {
                         LinearLayoutManager.HORIZONTAL,
                         false
                     )
-                    adapter = SimilarMoviesAdapter(data.results, context)
+//                    adapter = com.odhiambopaul.movie.ui.detail.SimilarMoviesAdapter(
+//                        data.results,
+//                        this@DetailActivity
+//                    )
+                    similarAdapter.addItems(data.results)
+                    adapter = similarAdapter
                 }
             }, { t -> Log.e("Error:::", t.localizedMessage) })
     }
