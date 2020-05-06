@@ -30,6 +30,7 @@ android {
             versionNameSuffix = ' - debug'
             applicationIdSuffix = '.debug'
             debuggable true
+            testCoverageEnabled true
         }
 
         release {
