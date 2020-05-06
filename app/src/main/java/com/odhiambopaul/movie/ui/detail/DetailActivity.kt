@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -52,6 +53,9 @@ class DetailActivity : AppCompatActivity() {
                     LinearLayoutManager.HORIZONTAL,
                     false
                 )
+                if (movies.isEmpty()) {
+                    binding.textS.visibility = View.GONE
+                }
                 similarAdapter.addItems(movies)
                 adapter = similarAdapter
             }
