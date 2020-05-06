@@ -20,7 +20,7 @@ class ViewModelFactory @Inject constructor(private val viewModelMap: Map<Class<o
         return try {
             creator.get() as T
         } catch (e: IOException) {
-            throw RuntimeException("Error ${e.message}")
+            throw RuntimeException("Error occurred")
         }
     }
 }
