@@ -24,7 +24,7 @@ abstract class BaseRecyclerViewAdapter<T : Any, VB : ViewDataBinding>
 
     var listener: ((view: View, item: T, position: Int) -> Unit)? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<VB> {
-        return BaseViewHolder<VB>(
+        return BaseViewHolder(
             DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
                 getLayout(),

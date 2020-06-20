@@ -3,7 +3,6 @@ package com.odhiambopaul.movie.ui.detail
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -17,11 +16,7 @@ import com.odhiambopaul.movie.databinding.ActivityDetailBinding
 import com.odhiambopaul.movie.di.component.DaggerApplicationComponent
 import com.odhiambopaul.movie.ui.adapter.SimilarMoviesAdapter
 import com.odhiambopaul.movie.ui.home.HomeActivity
-import com.odhiambopaul.movie.util.api_key
 import com.odhiambopaul.movie.util.image_path
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_detail.*
 import javax.inject.Inject
 
@@ -58,6 +53,17 @@ class DetailActivity : AppCompatActivity() {
                 }
                 similarAdapter.addItems(movies)
                 adapter = similarAdapter
+                similarAdapter.listener = { _, item, _ ->
+                    val id = item.id.toString()
+                    val intent = Intent(context, DetailActivity::class.java)
+                    intent.putExtra("id", id)
+                    intent.putExtra("poster", item.poster_path)
+                    intent.putExtra("release_date", item.release_date)
+                    intent.putExtra("language", item.original_language)
+                    intent.putExtra("overview", item.overview)
+                    intent.putExtra("title", item.title)
+                    context.startActivity(intent)
+                }
             }
         })
         Glide.with(this@DetailActivity)

@@ -19,7 +19,7 @@
             android:parentActivityName=".ui.home.HomeActivity"
             />
         <activity android:name=".ui.search.SearchActivity"
-            android:parentActivityName=".ui.home.HomeActivity"/>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".ui.home.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

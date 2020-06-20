@@ -1,5 +1,6 @@
 package com.odhiambopaul.movie.ui.search
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -36,53 +37,55 @@ class SearchActivity : AppCompatActivity() {
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 //code
+                searchMovie(viewModel, query!!)
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 //should also call getSearchedMovie
-                viewModel.run {
-                    getSearchResponse(api_key, newText!!)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe({ data ->
-                            val searchListM: MutableList<String> = ArrayList()
-                            val movies:MutableList<Movie> = ArrayList()
-                            data.results.forEach {
-                                searchListM.add(it.title)
-                                movies.add(it)
-                            }
-                            val adapter = ArrayAdapter(
-                                this@SearchActivity,
-                                android.R.layout.simple_list_item_1,
-                                searchListM
-                            )
-                            this@SearchActivity.searchList.adapter = adapter
-                            binding.searchList.onItemClickListener =
-                                OnItemClickListener { parent, _, position, _ ->
-                                    val item = parent.getItemAtPosition(position) as String
-//                                    view.animate().setDuration(2000).alpha(0f)
-//                                        .withEndAction {
-//                                            searchListM.remove(item)
-//                                            adapter.notifyDataSetChanged()
-//                                            view.alpha = 1f
-//                                        }
-                                    val intent = Intent(this@SearchActivity, DetailActivity::class.java)
-                                    intent.putExtra("id",movies[position].id.toString())
-                                    intent.putExtra("poster", movies[position].poster_path)
-                                    intent.putExtra("release_date", movies[position].release_date)
-                                    intent.putExtra("language", movies[position].original_language)
-                                    intent.putExtra("overview", movies[position].overview)
-                                    intent.putExtra("title", movies[position].title)
-                                    //clear the current activity
-                                    //intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                                    startActivity(intent)
-                                }
-                            Log.d("Success::", data.toString())
-                        }, { t -> Log.e("Error::", t.localizedMessage!!) })
-                }
+                searchMovie(viewModel, newText!!)
                 return false
             }
         })
+    }
+
+    fun searchMovie(viewModel: SearchViewModel, movieTitle: String) {
+        viewModel.run {
+            getSearchResponse(api_key, movieTitle)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ data ->
+                    val searchListM: MutableList<String> = ArrayList()
+                    val movies: MutableList<Movie> = ArrayList()
+                    data.results.forEach {
+                        searchListM.add(it.title)
+                        movies.add(it)
+                    }
+                    val adapter = ArrayAdapter(
+                        this@SearchActivity,
+                        android.R.layout.simple_list_item_1,
+                        searchListM
+                    )
+                    this@SearchActivity.searchList.adapter = adapter
+                    binding.searchList.onItemClickListener =
+                        OnItemClickListener { parent, _, position, _ ->
+                            parent.getItemAtPosition(position) as String
+                            val intent =
+                                Intent(this@SearchActivity, DetailActivity::class.java)
+                            intent.putExtra("id", movies[position].id.toString())
+                            intent.putExtra("poster", movies[position].poster_path)
+                            intent.putExtra("release_date", movies[position].release_date)
+                            intent.putExtra("language", movies[position].original_language)
+                            intent.putExtra("overview", movies[position].overview)
+                            intent.putExtra("title", movies[position].title)
+                            startActivity(intent)
+                        }
+                }, { t -> onResponseError(t.localizedMessage) })
+        }
+    }
+
+    @SuppressLint("LogNotTimber")
+    private fun onResponseError(localizedMessage: String?) {
+        Log.e("Error::", localizedMessage!!)
     }
 }
